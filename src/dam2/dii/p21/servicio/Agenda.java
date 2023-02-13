@@ -13,7 +13,7 @@ public final class Agenda {
 	
 	public static ArrayList<Usuario> getListaUsuariosClientes() {
 		if (LISTA_USUARIOS.size() == 0) {
-			UsuarioDAOMemoria.llenarListaUsuarios();
+			dao.getListaUsuarios();
 		}
 		ArrayList<Usuario> listaUsuariosClientes = new ArrayList<Usuario>();
 		for (int i = 0; i < LISTA_USUARIOS.size(); i++) {
