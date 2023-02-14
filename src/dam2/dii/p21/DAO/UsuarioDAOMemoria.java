@@ -8,7 +8,7 @@ import dam2.dii.p21.modelo.Usuario;
 
 public final class UsuarioDAOMemoria implements IUsuarioDAO {
 	
-	private static ArrayList<Usuario> LISTA_USUARIOS = new ArrayList<Usuario>();
+	private static final ArrayList<Usuario> LISTA_USUARIOS = new ArrayList<Usuario>();
 
 	public static void llenarListaUsuarios() {
 		LISTA_USUARIOS.add(new Usuario("1", "Angel", "Blasco", "Cano", "angel@blasco.es", "111111111", "123", false, 5));
