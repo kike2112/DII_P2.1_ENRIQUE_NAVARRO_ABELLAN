@@ -1,9 +1,6 @@
 package dam2.dii.p21.DAO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-
 import dam2.dii.p21.modelo.Usuario;
 
 public final class UsuarioDAOMemoria implements IUsuarioDAO {
