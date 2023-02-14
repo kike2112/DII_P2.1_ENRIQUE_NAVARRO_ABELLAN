@@ -10,11 +10,12 @@ import dam2.dii.p21.utiles.Utiles;
 public final class Agenda {
 	private static final IUsuarioDAO dao = new UsuarioDAOMemoria();
 	
+	public static ArrayList<Usuario> cargarUsuarios() {
+		ArrayList<Usuario> listaUsuarios = dao.getListaUsuarios();
+		return listaUsuarios;
+	}
 	public static ArrayList<Usuario> getListaUsuariosClientes() {
 		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
-		if (listaUsuariosTemp.size() == 0) {
-			dao.getListaUsuarios();
-		}
 		ArrayList<Usuario> listaUsuariosClientes = new ArrayList<Usuario>();
 		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
 			if (!listaUsuariosTemp.get(i).isRolAdmin()) {
@@ -52,10 +53,6 @@ public final class Agenda {
 		ArrayList<Usuario> listaUsuarios = getListaUsuariosClientes();
 		return listaUsuarios;
 	}
-	public static ArrayList<Usuario> cargarUsuarios() {
-		ArrayList<Usuario> listaUsuarios = dao.getListaUsuarios();
-		return listaUsuarios;
-	}
 	public static Usuario cargarUsuario(String id_us) {
 		Usuario usuario = dao.getUsuarioById(id_us);
 		return usuario;
@@ -70,6 +67,30 @@ public final class Agenda {
 		Usuario usuario = dao.getUsuarioByEmail(usuarioTemp.getEmail());
 		return usuario;
 	}
+	public static boolean restaurarIntentos(String email) {
+		boolean restaurado = false;
+		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
+		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
+			if (listaUsuariosTemp.get(i).getEmail().equals(email)) {
+				listaUsuariosTemp.get(i).setIntentos(5);
+				dao.actualizarUsuario(listaUsuariosTemp.get(i));
+				restaurado = true;
+			}
+		}
+		return restaurado;
+	}
+	public static boolean restarIntento(String email) {
+		boolean restado = false;
+		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
+		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
+			if (listaUsuariosTemp.get(i).getEmail().equals(email)) {
+				listaUsuariosTemp.get(i).setIntentos(listaUsuariosTemp.get(i).getIntentos() - 1);
+				dao.actualizarUsuario(listaUsuariosTemp.get(i));
+				restado = true;
+			}
+		}
+		return restado;
+	}
 	public static boolean actualizarUsuario(Usuario usuarioTemp) {
 		boolean exito = false;
 		if (dao.actualizarUsuario(usuarioTemp)) {
@@ -77,17 +98,25 @@ public final class Agenda {
 		}
 		return exito;
 	}
+	
+	
 	public static boolean actualizarPassUsuario(Usuario usuario, String pass3) {
 		boolean exito = false;
 		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
 		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
 			if (listaUsuariosTemp.get(i).getId_us().equals(usuario.getId_us())) {
 				listaUsuariosTemp.get(i).setPass(pass3);
+				dao.actualizarUsuario(listaUsuariosTemp.get(i));
 				exito = true;
 			}
 		}
 		return exito;
 	}
+
+
+	
+	
+	////////////Comprobadores varios///////////////
 	public static boolean existeEmailEnAgenda(String email) {
 		boolean existe_email = false;
 		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
@@ -117,28 +146,6 @@ public final class Agenda {
 			}
 		}
 		return coincide;
-	}
-	public static boolean restarIntento(String email) {
-		boolean restado = false;
-		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
-		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
-			if (listaUsuariosTemp.get(i).getEmail().equals(email)) {
-				listaUsuariosTemp.get(i).setIntentos(listaUsuariosTemp.get(i).getIntentos() - 1);
-				restado = true;
-			}
-		}
-		return restado;
-	}
-	public static boolean restaurarIntentos(String email) {
-		boolean restaurado = false;
-		ArrayList<Usuario> listaUsuariosTemp = dao.getListaUsuarios();
-		for (int i = 0; i < listaUsuariosTemp.size(); i++) {
-			if (listaUsuariosTemp.get(i).getEmail().equals(email)) {
-				listaUsuariosTemp.get(i).setIntentos(5);
-				restaurado = true;
-			}
-		}
-		return restaurado;
 	}
 	public static boolean estaBloqueado(String email) {
 		boolean esta_bloqueado = false;

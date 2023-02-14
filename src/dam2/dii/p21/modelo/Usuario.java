@@ -11,6 +11,7 @@ public class Usuario {
 	private String pass;
 	private int intentos;
 	private boolean rolAdmin;
+	private String idioma;
 	
 	public Usuario() {
 		super();
@@ -109,6 +110,12 @@ public class Usuario {
 	}
 	public void setIntentos(int intentos) {
 		this.intentos = intentos;
+	}
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
 	}
 	@Override
 	public String toString() {

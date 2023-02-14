@@ -77,6 +77,9 @@ public final class UsuarioDAOMemoria implements IUsuarioDAO {
 				LISTA_USUARIOS.get(i).setApellido2(usuario.getApellido2());
 				LISTA_USUARIOS.get(i).setEmail(usuario.getEmail());
 				LISTA_USUARIOS.get(i).setTelefono(usuario.getTelefono());
+				LISTA_USUARIOS.get(i).setPass(usuario.getPass());
+				LISTA_USUARIOS.get(i).setIntentos(usuario.getIntentos());
+				LISTA_USUARIOS.get(i).setIdioma(usuario.getIdioma());
 				exito = true;
 			}
 		}
