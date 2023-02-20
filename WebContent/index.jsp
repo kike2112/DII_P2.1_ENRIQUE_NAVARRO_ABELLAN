@@ -12,9 +12,11 @@
 <%
     Usuario usuarioI = (Usuario) request.getSession().getAttribute("usuario");
     String opcion;
+    
     if (usuarioI == null) {
     	opcion = (String) request.getAttribute("opcion");
     } else {
+    	String prueba = usuarioI.getEmail();
     	opcion = (String) request.getSession().getAttribute("opcion");
     }
     if (usuarioI == null && opcion == null) {
